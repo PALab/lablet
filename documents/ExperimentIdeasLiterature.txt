@@ -1,0 +1,163 @@
+-- Experiments Sorted by Topic --
+
+-- Mechanics
+- gravity, free fall [6]
+- pendulum/ coupled pendulum [7], [11]
+- friction/ slope: let the phone slide down a slope and use the accelerometer to measure x,y,z acceleration and use this values to draw the forces on the phone. Learning experience: understand the "force arrows"
+- centrifugal force [8] 
+
+-- Optics
+- diffraction grading [3]
+
+-- Sound
+- interfering two sounds [3], [1], [9]
+- Doppler shift [3]
+- sound in vacuum [10]
+
+
+--Ideas for Lab 160 --
+
+Experiment 1, Walking
+1) measure period T of the leg swing using the accelerometer (e.g. fixing it at the experimenter's shoe)
+2) measuring T during a normal walk and compare the times
+3) alternatively use the camera to measure T
+
+Experiment 2, Speed of Sound
+1) using two parabolic reflectors placed opposite of each other
+2) placing the phone in the focus of the first reflector
+3) producing a sound (which frequency length?, let the experimenter modulate the sound to find the frequency yielding the best results?)
+4) measure two responses a) the sound when sending the signal b) the reflected sound wave. Hopefully, the microphone latency in the phone is constant so we don't have to worry about differences receiving latencies.
+5) Doppler shift see [3]
+6) interfering different tones [3,9]
+
+Experiment 3, Resistance and Ohm’s Law
+http://www.seeedstudio.com/wiki/Bluetooth_Multimeter
+
+
+-- Ideas for Lab 120 --
+
+Experiment 1, Simple Pendulum
+1) see [7,13]
+
+Experiment 2, Charging a Capacitor
+
+Experiment 3, Speed of Sound in Air
+1) see [3,9,11]
+
+Experiment 4, Laws of Cooling
+1) see [5]
+
+Experiment 5, Thin Lenses
+
+
+-- Other Ideas --
+
+Measure SHM:
+Fix spring on a force sensing resistor:
+http://en.wikipedia.org/wiki/Force-sensing_resistor
+Possible usage: Use the force sensing resistor in a tone generator to change the tone frequency depending on the pendulum oscillation. Use the phone microphone to measure period T.
+
+Touchscreen as detector?
+- is there a ball that has the right capacity and can bounce on the tablet? -> measure gravity
+- force sensing detector? -> measure pressure on the touchscreen, e.g. to measure fluid resistance?
+
+Magnetometer?
+http://www.sensorplatforms.com/understanding-smart-phone-sensor-performance-magnetometer-2/
+measure magnetic field depending on sensor position. Hall effect...
+
+
+-- Ideas for the Software --
+
+- Basically like tracker but generalize it to more data sources other than just a series of pictures (movie).
+- Be able to record a series of experiments. In each experiment a 2D dataset is taken, e.g, accelerator value vs. time, sound vs. time. This also includes movies, i.e., series of 2D pictures.
+- Be able to mark points in each experiment and plot these point for the whole series.
+- The experimenter is able to choose what sensors to use for a series. 
+
+
+-- Literature --
+
+[1] Smartphones as portable oscilloscopes for physics labs: (Kyle Forinash and Raymond F. Wisman)
+http://scitation.aip.org/content/aapt/journal/tpt/50/4/10.1119/1.3694081
+They use the microphone in as input and the SignalScope as an oscilloscope.
+http://www.faberacoustical.com/ios_apps/signalscope_pro/
+
+[2] Acoustic measurements of bouncing balls and the determination of gravitational acceleration (Oliver Schwarz, Patrik Vogt and Jochen Kuhn)
+http://scitation.aip.org/content/aapt/journal/tpt/51/5/10.1119/1.4801369
+use microphone as a detector for the bounces
+
+[3] Applications and Examples of Experiments with Mobile Phones and Smartphones in Physics Lessons (Jochen Kuhn, Patrik Vogt)
+- Beat of two interfering phones
+- Measure gravity by dropping phone onto a cushion using the Doppler shift
+- The Mobile Phone Makes Infrared Radiation Visible
+-- using remote infra red LED and diffraction grading, e.g. 50 lines/mm or a regular CD
+
+[4] Public Lab Smartphone Spectrometer v4
+http://www.thingiverse.com/thing:125428
+
+[5] Smartphones—Experiments with an External Thermistor Circuit (Kyle Forinash and Raymond F. Wisman)
+http://scitation.aip.org/content/aapt/journal/tpt/50/9/10.1119/1.4767499
+use headphone port for external thermistor circuit
+
+[6] Analyzing free fall with a smartphone acceleration sensor (Patrik Vogt and Jochen Kuhn)
+http://scitation.aip.org/content/aapt/journal/tpt/50/3/10.1119/1.3685123
+use acceleration sensor to measure \Delta t (constant value while phone is free falling) knowing the height the phone is dropped from gives g
+
+[7] Analyzing spring pendulum phenomena with a smart-phone acceleration sensor (Jochen Kuhn and Patrik Vogt)
+http://scitation.aip.org/content/aapt/journal/tpt/50/8/10.1119/1.4758162
+use acceleration sensor to measure vertical swinging phone on a spring, use two phones for a coupled pendulum
+
+[8] Analyzing radial acceleration with a smartphone acceleration sensor (Patrik Vogt and Jochen Kuhn)
+http://scitation.aip.org/content/aapt/journal/tpt/51/3/10.1119/1.4792021
+Rotate phone on a roof slat: verify acceleration sensor with calculated values, verify acceleration a ~ v^2 
+
+[9] Analyzing acoustic phenomena with a smartphone microphone (Jochen Kuhn1 and Patrik Vogt 2013)
+http://scitation.aip.org/content/aapt/journal/tpt/51/2/10.1119/1.4775539
+analyze the differences between noise, tone and sound using a phone microphone
+
+[10] Revisiting the bell-jar demonstration (Imelda Caleon, R Subramaniam and Ma Hershey P Regaya)
+http://iopscience.iop.org/0031-9120/48/2/247/article
+demonstrate that sound does not travel in a vacuum by calling a phone hanging in a vacuum, by placing the phone on the ground sound can be transmitted over the bell jar ground
+
+[11] Using the mobile phone acceleration sensor in Physics experiments: free and damped harmonic oscillations (Juan Carlos Castro-Palacio, Luisberis Velazquez-Abad, Marcos H. Gimenez, Juan A. Monsoriu)
+http://arxiv.org/abs/1212.4403
+uses accelerometer
+
+[12] Investigating viscous damping using a webcam (S. Shamim, W. Zia, and M. S. Anwar)
+https://fisica.ciencias.uchile.cl/~rodrigov/feno/papers/AJP78_433.pdf‎
+
+[13] Web camera as a measuring tool in the undergraduate physics laboratory (S Nedev and V Ch Ivanova 2006)
+http://iopscience.iop.org/0143-0807/27/5/020
+diffusion of ink drop in water, pendulum damped oscillations and light diffraction
+
+[14] The optical mouse for harmonic oscillator experimentation (T. W. Ng and K. T. Ang 2005)
+http://scitation.aip.org/content/aapt/journal/ajp/73/8/10.1119/1.1862634
+use mouse as detector, plane is oscillating before the mouse (can the touch screen be used for that, or the proximity sensor?)
+
+[15] Simultaneous Tracking of Multiple Points Using a Wiimote (Alex Skeffington and Kyle Scully 2012)
+http://dx.doi.org/10.1119/1.4758151
+
+[16] Cellular Phones Helping To Get a Clearer Picture of Kinematics (A. E. G. Falcão Jr.1, R. A. Gomes2, J. M. Pereira3, L. F. S. Coelho3 and A. C. F. Santos 2009)
+http://scitation.aip.org/content/aapt/journal/tpt/47/3/10.1119/1.3081301
+single photo of a water jet from a hose
+
+[17] A simple demonstration for exploring the radio waves generated by a mobile phone  (Jonathan Hare 2010)
+http://iopscience.iop.org/0031-9120/45/5/004
+measure radio waves, using a wire loop + LED
+
+
+-- Android Software --
+
+* Reading of various android sensors.
+https://play.google.com/store/apps/details?id=com.fivasim.androsensor
+ 
+* SensorScope plots the output of your phone's sensors, similar to a traditional oscilloscope. With SensorScope you can select ANY sensor of your phone, including all synthetic and corrected sensors, you can pause the plot, and you can zoom in and out on the time and value scales.
+https://play.google.com/store/apps/details?id=nl.cvr.sensorscope
+
+* This app displays a graph of Luminosity (lux) vs. Time (s) that can be exported to Google Drive or in an e-mail as a .txt file as comma separated values (csv). Test the brightness/intensity of light sources using your phone light sensor.
+https://play.google.com/store/apps/details?id=com.chrystianvieyra.android.physics.toolbox.light.sensor
+
+* Stream Sensor Data From Your Phone To A PC Or A Classroom Of PC’s
+https://play.google.com/store/apps/details?id=com.sensorscope
+
+* Another scope: ACCELEROMETER, GYROSCOPE, LIGHT, MAGNETIC FIELD, ORIENTATION, PROXIMITY, ROTATION, TEMPERATURE, PRESSURE sensors.
+https://play.google.com/store/apps/details?id=org.lysergic.apps.sensormeter
