@@ -78,7 +78,7 @@ http://dx.doi.org/10.1145/2501988.2502007}
 
 \newcommand{\eg}{e.g.,\ }
 \newcommand{\ie}{i.e.,\ }
-\newcommand{\haiku}{Haiku~OS}
+\newcommand{\lablet}{Lablet\ }
 \newcommand{\wysiwyg}{\mbox{WYSIWYG}\ }
 \newcommand{\dragndrop}{drag and drop\ }
 
@@ -165,11 +165,21 @@ present the scripting language of Lablet to link experiments with
 individual sensors or embed one or more experiments in what we call
 ``activities'' in Lablet.
 
-\section{Sensors}
 
-% camera:
+\subsection{Contributions}
+Our contributions can be summarised as follows:
 
+\begin{enumerate}
+\item \lablet, a novel physics learning environment for mobile devices.
+\item Lab Activities.
+\end{enumerate}
 
+\section{Related Work}
+% Web camera as a measuring tool in the undergraduate physics laboratory and Investigating viscous damping using a webcam 
+For example, a web camera has been used to analyze diffusion of ink drop in water, damped oscillations of a pendulum, diffraction patterns~\cite{Nedev2006} and mass oscillating in a viscous fluid~\cite{Shamim2010}.
+% Cellular Phones Helping To Get a Clearer Picture of Kinematics 
+The kinematic of a water jet from a hose can be studied by taking a photo of the scene using a mobile device~\cite{Falcao2009}. \lablet users have the option to record video at different resolutions and
+frame rates.
 
 % sound:
 
@@ -213,30 +223,17 @@ The Wiimote sensor can been used to track multiple objects simultaneously, \eg t
 A mobile phone can also be used as a radio wave source that can be measured using a simple wave detector~\cite{Hare2010}.
 
 
-% recording and sensors
-Lablet is designed to simultaneously record data from multiple sensors.
-This allows to record, for example, a video and accelerometer data at the same time.
-Currently Lablet supports common sensors in mobile devices, \ie camera, microphone and accelerometer.
-However, Labet's architecture makes it easy to support other sensors in the future.
-Before starting an experiment the user can select what sensors should be used when recording.
+\section{Sensors}
+\lablet uses the build in sensors of mobile devices to record data.
+Currently, these sensors are the camera, the microphone and the accelerometer.
+Data from multiple sensors can be recorded in parallel, for example, to record the an visual and acoustic data of an event.
 
-\subsection{Camera}
-The camera sensor on a mobile device can record a video of
-an experiment, and with video analysis software various
-measurements can be made.
-% Web camera as a measuring tool in the undergraduate physics laboratory and Investigating viscous damping using a webcam 
-For example, a web camera has been used to analyze diffusion of ink
-drop in water, damped oscillations of a pendulum, diffraction
-patterns~\cite{Nedev2006} and mass oscillating in a viscous
-fluid~\cite{Shamim2010}.
-% Cellular Phones Helping To Get a Clearer Picture of Kinematics 
-The kinematic of a water jet from a hose can be studied by taking a
-photo of the scene using a mobile device~\cite{Falcao2009}.  Lablet
-users have the option to record video at different resolutions and
-frame rates.  The usual recording frame rate of modern mobile devices
+\paragaph{Camera Sensor}
+The camera sensor on a mobile device can record a video of an experiment, and with video analysis software various measurements can be made.
+  The usual recording frame rate of modern mobile devices
 is between 25 and 30 fps.  Compared to a classic experiment where
 experimenters use a stopwatch to measure the time this allows a more
-precise measurement with an accurency smaller 50ms.  For long and
+precise measurement with an occurrence smaller 50ms.  For long and
 slower experiments it is not practical to record a video at a high
 frame rate and high video resolution since this results in very large
 video files.  For example, using Lablet to record a video at
@@ -249,12 +246,13 @@ resolution is required one can lower the frame rate.  Lablet allows to
 record video with a video frame rate down to 0.1 fps but theoretically
 there is now lower limit for the recording frame rate.
 
-\subsection{Microphone}
+\paragaph{Microphone Sensor}
 Lablet uses the build in microphone of a mobile devices to record
-audio data.  The use sampling rate is 44100Hz.  This allows the
-un-aliased recording of sound from roughly 20Hz - 22000Hz.
+audio data.
+The use sampling rate is 44100Hz.
+This allows the un-aliased recording of sound from roughly 20Hz - 22000Hz.
 
-\subsection{Accelerometer}
+\paragaph{Accelerometer Sensor}
 The build in a accelerometer of mobile devices usually provide
 accelerometer data for x, y and z direction.
 %TODO: The readout frequency is between...
@@ -325,6 +323,9 @@ that can be moved and rotated on the screen
     scene.\label{fig:MotionAnalysis} }
 \end{figure}
 
+\subsubsection{Motion Tracking}
+
+
 \subsection{Frequency Analysis}
 The frequency analysis module does a Fourier analysis of recorded
 audio data.  This is done by parting the audio data into windows of
@@ -386,7 +387,7 @@ further analysis.
 Lablet automatically integrates the measured accelerometer data to get
 velocity and displacement of the device.  To do so we assume the
 mobile device is initially at rest and only gravity is affecting it.
-Ususaly the measured total acceleration at rest is not equal to the
+Usually the measured total acceleration at rest is not equal to the
 earth gravity $g$ and the value has to be calibrated.  The
 experimenter can do this by placing a calibration line in the time
 acceleration graph (Figure~\ref{fig:AccelerometerAnalysis}).
@@ -409,7 +410,7 @@ and distance graphs have a large drift.  To avoid this problem one can
 use the knowledge that the lift was at rest at the top and at the
 bottom of the journey.  Fiddling with the calibration line till the
 velocity graph shows a velocity of zero at the beginning and the end
-results in a traveled distance that is actually compatible with the
+results in a travelled distance that is actually compatible with the
 height of the building.
 
 \begin{figure}
@@ -445,7 +446,7 @@ not part of the desired learning outcome.
 Lablet solves this shortcomings described above by providing a way to
 run {\em Lab Activities} tailored for individual laboratory classes.
 A Lab Activity can include a multitude of elements such as
-instructions, quesitions, experiments, visualization of experiment
+instructions, questions, experiments, visualization of experiment
 data or advanced analysis task.
 
 \begin{figure}
@@ -581,7 +582,7 @@ the problem; Lablet does not do the core part for you it is just a
 tool that helps learning.
 
 \section{Future Work}
-- Automatic motion tracking
+- more sensors/ external sensors
 - Combined analysis, \eg camera and mic
 - Make it easier for teachers to create lab activies
 
