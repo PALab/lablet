@@ -9,6 +9,7 @@
 \usepackage{graphics} % for EPS, load graphicx instead
 \usepackage{times}    % comment if you want LaTeX's default font
 \usepackage{url}      % llt: nicely formatted URLs
+\usepackage{todonotes}
 
 % Load basic packages
 %\usepackage[pdftex]{graphicx}
@@ -225,43 +226,44 @@ A mobile phone can also be used as a radio wave source that can be measured usin
 
 \section{Sensors}
 \lablet uses the build in sensors of mobile devices to record data.
-Currently, these sensors are the camera, the microphone and the accelerometer.
 Data from multiple sensors can be recorded in parallel, for example, to record the an visual and acoustic data of an event.
+Currently, these sensors are the camera, the microphone and the accelerometer.
+The quality and abilities of a sensor depends on the manufacture and the used model.
+For this reason we only discuss the general properties of these sensors and discuss possible limitations based on our experiences using \lablet in the lab classes.
 
-\paragaph{Camera Sensor}
-The camera sensor on a mobile device can record a video of an experiment, and with video analysis software various measurements can be made.
-  The usual recording frame rate of modern mobile devices
-is between 25 and 30 fps.  Compared to a classic experiment where
-experimenters use a stopwatch to measure the time this allows a more
-precise measurement with an occurrence smaller 50ms.  For long and
-slower experiments it is not practical to record a video at a high
-frame rate and high video resolution since this results in very large
-video files.  For example, using Lablet to record a video at
-1280x800@30fps results in a mp4 file roughly of the size of 4.2 Gb per
-hour.  In order to reduce the disk requirements Lablet allows to lower
-the frame rate and video resolution.  If for an experiment the video
-resolution is less important than the time resolution one should just
-lower the video resolution.  On the other hand, if a high video
-resolution is required one can lower the frame rate.  Lablet allows to
-record video with a video frame rate down to 0.1 fps but theoretically
-there is now lower limit for the recording frame rate.
+\paragraph{Camera}
+Modern mobile devices are usually equipped with at least one camera that can record videos at a reasonable high resolution.
+In general cameras in mobile devices do not record at a fix recording frame rate but only try to reach a target frame rat.
+From our experiences many cameras are able to record with a reasonable stable frame rate between 25 and 30 fps.
+However, a recording frame rate of 30fps is not uncommon.
+In other words experiments can be recorded with a time resolution of 34-40ms.
+\todo[inline]{is that called time resolution?}
+% I don't know what exactly going on so I'm a bit vage here and do not name a certain component for the problem:
+Failing to record a video frame usually results in duplicated frames in the video file, \ie the missing frame is compensated by another frame.
 
-\paragaph{Microphone Sensor}
-Lablet uses the build in microphone of a mobile devices to record
-audio data.
-The use sampling rate is 44100Hz.
-This allows the un-aliased recording of sound from roughly 20Hz - 22000Hz.
+% long videos
+Recording long videos can result in very large video files that might exceed the storage of the mobile device.
+For example, recording a video at 1280x800@30fps results in a mp4 file roughly of the size of 4.2 Gb per hour.
+In order to reduce the disk requirements \lablet allows to lower the recording frame rate or video resolution.
+\lablet allows to record video with a video frame rate down to 0.1 fps but theoretically there is now lower limit for the recording frame rate.
+This allows to record long video with either a high video- and a low time-resolution or with a low video- and a high time-resolution.
 
-\paragaph{Accelerometer Sensor}
-The build in a accelerometer of mobile devices usually provide
-accelerometer data for x, y and z direction.
-%TODO: The readout frequency is between...
-%TODO: The precision is in the range of...
-Lablet calculate a resulting total acceleration value from these three
-vales
-\[
-a_{total} = \sqrt{a_x^2 + a_y^2 + a_z^2}
-\]
+\paragraph{Microphone}
+Common microphones in mobile devices are able to record audio data with a sampling rate of 44100Hz.
+This allows the un-aliased recording of sound from roughly 20Hz to 22000Hz which is corresponds to the hearing range of humans.
+Note, since microphones in mobile devices are designed to record the audible spectrum a microphone might be less sensitive for certain frequency ranges.
+For example, very high frequencies are less important for a recording than a low frequencies.
+
+\paragraph{Accelerometer}
+Accelerometer in mobile devices usually detect accelerations in x, y and z direction.
+Since there are many different accelerometers used in mobile devices we just give some example specifications to illustrate the capabilities of such accelerometers.
+With the Galaxy Tab4 we were able to record $\sim100$ accelerometer data points per second.
+The BMA180\footnote{\url{http://www.sensorsmag.com/product/mems-accelerometer-bosch-sensortec}}, a microelectromechanical system (MEMS) accelerometer can detect accelerations of $0.00025g$ and a tilt change in the field of gravity of $0.25^{\circ}$
+
+%Lablet calculate a resulting total acceleration value from these three
+%\[
+%a_{total} = \sqrt{a_x^2 + a_y^2 + a_z^2}
+%\]
 
 \section{Analysis}
 Once sensor data has been recorded it can directly be analyzed within
