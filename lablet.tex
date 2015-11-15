@@ -80,6 +80,9 @@ http://dx.doi.org/10.1145/2501988.2502007}
 \newcommand{\eg}{e.g.,\ }
 \newcommand{\ie}{i.e.,\ }
 \newcommand{\lablet}{Lablet\ }
+\newcommand{\lablets}{Lablet's\ }
+\newcommand{\labactivity}{Lab Activity\ }
+\newcommand{\labactivities}{Lab Activities\ }
 \newcommand{\wysiwyg}{\mbox{WYSIWYG}\ }
 \newcommand{\dragndrop}{drag and drop\ }
 
@@ -166,6 +169,16 @@ present the scripting language of Lablet to link experiments with
 individual sensors or embed one or more experiments in what we call
 ``activities'' in Lablet.
 
+In a classical laboratory class students usually get a paper-based handout that guides them through the class.
+The handout can include instructions, questions and other tasks.
+For example, the handout can instruct students to manually calculate the velocity of a moving object using \lablets motion analysis module.
+The desired learning outcome for this experiment could be to understand how to calculate the velocity from consecutive position measurements and discuss the velocity time graph.
+To do so data can be exported from the mobile device and analyzed on a computer.
+However, this complicates the laboratory class since more equipment is required and students needs to learn to use the analysis software.
+Another way to analysis the data is to calculate the velocity manually using pen, paper and a
+calculator.
+The drawback of this method is that students have to repeat a relative simple task multiple time and the results and because teachers have to recalculate the results they are difficult to verify.
+Either way, students have to spend time with tasks that are not part of the desired learning outcome.
 
 \subsection{Contributions}
 Our contributions can be summarised as follows:
@@ -226,7 +239,7 @@ The Wiimote sensor can been used to track multiple objects simultaneously, \eg t
 A mobile phone can also be used as a radio wave source that can be measured using a simple wave detector~\cite{Hare2010}.
 
 
-\section{Sensors}
+\section{Sensors}\label{sec:Sensors}
 \lablet uses the build in sensors of mobile devices to record data.
 Data from multiple sensors can be recorded in parallel, for example, to record the an visual and acoustic data of an event.
 Currently, these sensors are the camera, the microphone and the accelerometer.
@@ -272,7 +285,7 @@ The BMA180\footnote{\url{http://www.sensorsmag.com/product/mems-accelerometer-bo
 %a_{total} = \sqrt{a_x^2 + a_y^2 + a_z^2}
 %\]
 
-\section{Analysis Modules}
+\section{Analysis Modules}\label{sec:AnalysisModules}
 Recorded sensor data can directly be analysed using Lablet's analysis modules.
 Moreover, external video or audio data can be imported to \lablet and then be analysed within \lablet.
 Currently, there are three analysis modules available that are presented in the following.
@@ -334,16 +347,14 @@ a Doppler shift experiment.
 
 % visualization
 To visualize very small frequency changes the user can changing the colour contrast and brightness.
-Furthermore, the frequency map is zoomable and makes it possible to magnify interesting data points.
+Furthermore, the frequency map is zoom-able and makes it possible to magnify interesting data points.
 
 % details
-In the following details about the performed discrete Fourier analysis are presented.
 To perform a discrete Fourier analysis on the recorded audio data the audio data is first partitioned into fix sized data windows.
 For each window first a Hamming window function and then a discrete Fourier analysis is performed.
 The discrete Fourier analysis is then performed on each of these windows.
 The window size as well as the overlap of two consecutive windows can be configure.
 For example, a window overlap of 0\% means that two consecutive windows are directly adjacent while an overlap of 50\% means that the second half of the previous window is the first half of the following window.
-
 
 \begin{figure}
   \centering
@@ -353,21 +364,17 @@ For example, a window overlap of 0\% means that two consecutive windows are dire
 \end{figure}
 
 % what window size and window overlap do
-At a sampling rate $f_s$ and a window size $n$ samples time between two windows is
+In the following we discuss how the window size and the window overlap affects the time and the frequency resolution of the frequency map. 
+For a given sampling rate $f_s$ and a window size of $n$ samples, the time between two windows is
 \[
 \Delta t_w = n / f_s
 \]
-This means the time resolution of the time frequency plot is high if
-the window size is small.  When using a percental window overlap $p$
-this time deceases further to
+This means the time resolution of the time frequency plot is high if the window size is small.
+When using a percental window overlap $p$ this time deceases further to
 \[
 \Delta t_w = n / f_s * (1 - p / 100)
 \]
-Note, that when using a window overlap only existing data is reused
-thus no new information is used when increasing the window overlap.
-However, since a hamming window function is indeed sense to use a
-window overlap and in practice some frequency changes become more
-visible at certain window sizes.
+Since the hamming window function is sensitive to the window overlap, in practice, some frequency changes become more visible when using a certain window overlap.
 
 % frequency resolution
 % TODO: is frequency resolution the right term?
@@ -375,40 +382,30 @@ The frequency resolution is given by
 \[
 \Delta f = f_s / (n - 1)
 \]
-Thus, the trade-off of increasing the time resolution by decreasing
-the window size is that the frequency resolution degrades.  In
-practice a good compromise has to be found that gives good results for
-a certain problem.
+Thus, the trade-off of increasing the time resolution by decreasing the window size is that the frequency resolution degrades.
+In practice a good compromise has to be found that gives good results for a certain problem.
 
 \subsection{Accelerometer Analysis Module}
-Lablet automatically integrates the measured accelerometer data to get
-velocity and displacement of the device.  To do so we assume the
-mobile device is initially at rest and only gravity is affecting it.
-Usually the measured total acceleration at rest is not equal to the
-earth gravity $g$ and the value has to be calibrated.  The
-experimenter can do this by placing a calibration line in the time
-acceleration graph (Figure~\ref{fig:AccelerometerAnalysis}).
+While the motion analysis module is able to determine velocity and acceleration of a moving object, the accelerometer analysis module can be used to calculate velocity and displacement of the mobile device from the measured acceleration.
+To calculate the mobile device's velocity the acceleration has to be integrated over the time and to calculate the displacement another integration has to be performed.
 
 % problem
-Integrating the acceleration is a very difficult task and small errors
-in the initial acceleration results in a drift of the integrated data.
-This problem is exasperated in the second integral.  Because of that
-one can only expect qualitative results for velocity and distance.
+The main problem when integrating acceleration data is that small measuring errors or uncertainties of the initial acceleration are propagate in every integration step and a drift in the integrated data can be observed.
+The problem gets even worse when the so calculated velocity is integrated a second time.
+For example, even if the mobile device is at rest at the begin of the measurements one can not assume that sensor is probably calibrated to report the gravity of the earth.
+This initial offset contributes linear to the velocity and quadratic to the displacement calculation.
 
-% elevator example and discussion
-The accelerometer data in Figure~\ref{fig:AccelerometerAnalysis} shows
-a journey in an elevator from the top of the building to the ground
-floor.  The first peek shows how the elevator accelerates till it
-reach a certain speed then the second peek indicates how the elevator
-decelerates to come to a stop at the bottom of the building.  If one
-would place the calibration line in the time acceleration graph
-without looking at the integrals it is almost certain that velocity
-and distance graphs have a large drift.  To avoid this problem one can
-use the knowledge that the lift was at rest at the top and at the
-bottom of the journey.  Fiddling with the calibration line till the
-velocity graph shows a velocity of zero at the beginning and the end
-results in a travelled distance that is actually compatible with the
-height of the building.
+% calibration
+The integration problem described above makes it very hard to perform meaningful velocity or displacement measurements.
+However, the accelerometer analysis module allows to adjust the initial acceleration and allows students to experience the effect on the resulting velocity and displacement.
+Furthermore, trying reasonable initial acceleration values students can get qualitative results that can then be compared to the expected results.
+
+% using external knowledge
+Another way to tackle the integration problem is to use additional knowledge about the measured movement.
+For example, Figure~\ref{fig:AccelerometerAnalysis} shows the measurement of a mobile device travelling in an elevator from the top level to the ground floor.
+Known is that at the start and the end of the journey the elevator and thus the mobile device is at rest.
+Choosing the initial acceleration in a way that these conditions are met in the velocity data, one can actually observe that the elevator moved with a constant velocity between a acceleration and deceleration phase.
+Furthermore, the measured displacement is compatible with the height of the building.
 
 \begin{figure}
   \centering
@@ -420,130 +417,85 @@ height of the building.
     right).\label{fig:AccelerometerAnalysis} }
 \end{figure}
 
-\subsection{Data Export}
 
+\subsection{Data Export}
+The here presented analysis modules that are currently supported by \lablet are designed for a certain type of analyses.
+To perform other analyses external tools has to be used.
+For that reason \lablet allows to export measured sensor data as well as the results of \lablets analysis modules.
 
 \section{Lab Activities}
-In a classical laboratory class students usually get a paper-based
-handout that guides them through the class.  The handout can include
-instructions, questions and other tasks.  For example, the handout can
-instruct students to manually calculate the velocity of a moving
-object using Lablet's motion analysis module.  The desired learning
-outcome for this experiment could be to understand how to calculate
-the velocity from consecutive position measurements and discuss the
-velocity time graph.  To do so data can be exported from the mobile
-device and analyzed on a computer.  However, this complicates the
-laboratory class since more equipment is required and students needs
-to learn to use the analysis software.  Another way to analysis the
-data is to calculate the velocity manually using pen, paper and a
-calculator.  The drawback of this method is that students have to
-repeat a relative simple task multiple time and the results and
-because teachers have to recalculate the results they are difficult to
-verify.  Either way, students have to spend time with tasks that are
-not part of the desired learning outcome.
-
-% Lablet's solution
-Lablet solves this shortcomings described above by providing a way to
-run {\em Lab Activities} tailored for individual laboratory classes.
-A Lab Activity can include a multitude of elements such as
-instructions, questions, experiments, visualization of experiment
-data or advanced analysis task.
+\todo[inline]{move this first bit into the introduction?}
+In laboratory classes students often need instructions that guide them through the experiments.
+\lablet introduces {\em \labactivities} to provide students with information and instructions directly on the tablet.
+A \labactivity can include a multitude of elements such as instructions, questions, experiments or graphs.
+Furthermore, \lablets sensor experiments and analysis modules can be embedded into a \labactivity. 
+\labactivities are comparable to classical paper-based handouts.
+\labactivities can be created by teachers and are highly customizable.
 
 \begin{figure}
   \centering
   \includegraphics[width=.99\columnwidth]{LabActivitySheet}
-  \caption{Sheet from a Lab Activity containing various different
-    elements.}
-  \label{fig:LabActivitySheet} 
+  \caption{\label{fig:LabActivitySheet}Sheet from a Lab Activity containing various different elements.} 
 \end{figure}
 
 % desciption of the Lab Activities UI
-Each Lab Activity can have multiple sheets.  The sheets are in a
-horizontal layout and students can go to next or previous sheet using
-a swipe gesture.  Each sheet can have an unlimited number of elements.
-Some elements requires to be completed before students can proceed to
-the next sheet.  For example, check boxes needed to be ticked before
-the next sheet becomes available.  Figure~\ref{fig:LabActivitySheet}
-shows an example of a single sheet containing various different
-elements.
+Each \labactivity can have multiple sheets.
+Each sheet can have an unlimited number of elements.
+Some elements requires to be completed before students can proceed to the next sheet.
+For example, check boxes needed to be ticked before the next sheet becomes available.
+Users can easily navigate between sheets using a simple horizontal swipe gesture.
+Figure~\ref{fig:LabActivitySheet} shows an example of a sheet containing various different elements.
 
 % layout
-Lablet comes with a powerful but simple layout model to position
-elements on a sheet.  Elements can be placed in horizontal or vertical
-boxes.  Vertical and horizontal layouts can be nested to create more
-complex layouts.  For example, the main layout in
-Figure~\ref{fig:LabActivitySheet} is a vertical layout while the two
-graphs are placed in a horizontal layout.
+Lablet comes with a powerful but simple layout model to position elements on a sheet.
+Elements can be placed in horizontal or vertical boxes that can be further nested to create more complex layouts.
+For example, the main layout in Figure~\ref{fig:LabActivitySheet} is a vertical box while the two graphs are placed in a horizontal box.
 
-\subsection{Default Elements}
-In the following a brief description of the available elements that
-can be placed on a sheet is given.
+\subsection{Elements}
+In the following a brief overview of the the available \labactivity elements that can be placed on a sheet is given.
 
 \paragraph{Header}
 The header element can be used to mark a new section on the sheet.
 
 \paragraph{Text}
-The text element displays some text and can be used for instructions
-or other informations.
+The text element displays some text and can be used for instructions or other information.
 
 \paragraph{Check Box}
-The check box element has some desciptive text and a check box.  All
-check boxes on a sheets need to be checked before the next sheet is
-activated.
+The check box element has some descriptive text and a check box.
+All check boxes on a sheets need to be checked before the next sheet is activated.
 
 \paragraph{Question}
-The question element is a text only question.
+The question element is a simple line of text that can be used to ask a question.
 
 \paragraph{Question with Answer Text}
-This element is the same as the basic question element but it has a
-field for text input.
+Additionally to the basic question element this element contains a field for text input.
 
 \paragraph{Sensor Experiment}
-The experiment element let students start an experiments.  There are
-currently three versions of this element, \ie on version each for the
-camera, microphone and accelerometer sensor.
+The sensor experiment element starts a camera, a microphone or an accelerometer sensor experiment (see Section~\ref{sec:Sensors}).
 
 \paragraph{Data Analysis}
-The experiment analysis element let students start an analysis of data
-recorded with the experiment element.  As for the experiment there are
-currently three different types of experient analyses, \ie motion
-analysis, frequency analysis and accelerometer analysis.
-
-\subsection{Motion Analysis Elements}
-So far we used Lablet mainly for motion analysis and thus there are
-some special elements that are described in the following.
+The experiment analysis element starts one of \lablets analysis modules (see Section~\ref{sec:AnalysisModules}) to analyse recorded data.
 
 \paragraph{Graph}
-The graph element uses data from the motion analysis element to
-display a various interessting plots.  A axes of a graph element can
-be configured to show differen data.  A axis can show time, position,
-velocity and acceleration data.
+The graph element displays data from the motion analysis module in a 2D graph.
+The graph axes can be configured to show time, position, velocity or acceleration data.
 
 \paragraph{Derivation}
-The Derivation element is an excercise for students to calculate
-velocity and acceleration from taken data.  Two velocity points have to
-be calculated from three successive data points to calculate
-the acceleration value from the two velocity points.  Moreover,
-students have to select the correct unit for velocity and
-acceleration.  There is an automatic check that varifies each step of
-the calculation.  This makes it easy for demonstrators to spot
-problems students have with the calculation.  Once the calculation for
-the sample points has been done correctly by the students the rest of
-the values are calculated and displayed to the students.
+The derivation element let students calculate velocity and acceleration from motion data gathered in the motion analysis module.
+%This element uses three successive data points to calculate the acceleration value from the two velocity points.
+Students have calculate the correct numeric values and select the correct unit for velocity and acceleration.
+\lablet automatic verifies the results.
+Once a few sample points are calculated correctly the remaining values are calculated automatically.
 
 \paragraph{Potential Energy}
-This element let the students estimate the potential energy in Joule
-at a certain point in there experiment.  This students then have
-calculate what the equivalent in calories is and compare this value to
-the calories of an example piece of food.  Again, if the correctness
-of the calculation is verified by the system.
+This potential energy element let the students estimate the potential energy of a mass at a certain height.
+The student then exercise the unit transformation from Joule to Calories.
+\lablet automatically verifies the results.
 
 \subsection{Editing Lab Activities}
-From the techniqual point of view Lab Activities are simple text files
-that describe the sheets and the contents.  The text file can easily
-imported and managed on the mobile device.  The following listing
-shows a small example containing a single sheet and some basic
-elements.
+Teachers can specify \labactivities in a plain text file.
+This text file can be imported and managed into \lablet.
+The following listing shows a small example of a \labactivity specification containing a single sheet and a few elements.
 
 \begin{lstlisting}
 Lablet = {
@@ -562,6 +514,30 @@ function Lablet.buildActivity(builder) {
     sheet:addCheckQuestion("ball")
 }
 \end{lstlisting}
+
+\section{Conclusion}
+In this paper we presented \lablet, a new physics learning environment for mobile devices.
+\lablet allows to record data using common sensors of modern mobile devices, \ie camera, microphone and accelerometer.
+Using three build in analysis modules, \ie motion analysis, frequency analysis and accelerometer analysis, recorded data can analysed directly on the mobile device.
+\lablets \labactivities enables teachers to define complex electronic handouts that guide students through laboratory classes.
+\labactivities supports exercise tasks that give direct feedback to the students.
+
+\lablet makes it easy to perform and analyse experiments outside of the classical laboratory.
+\labactivities reduces repetitive tasks such as drawing plots and calculating data so that students have more time to discuss results with each other and the teacher.
+
+\paragraph{Future Work}
+In future work we plan to support more internal and external sensors such as gyroscope, thermometer or adrino sensors.
+While \lablet already supports three analysis modules one can think of more modules for different type of analyses or combined analyses.
+For example, \lablet supports to record video and audio data at the same time but can only analyse the data separately.
+Combining both analyses would make it possible to map sound events to visual events.
+For the \labactivity we plan to support more elements and task.
+Furthermore, we like to make it easier for teachers to create new \labactivities.
+
+
+\bibliographystyle{acm-sigchi}
+\bibliography{BibEntries}
+
+\end{document}
 
 
 \begin{comment}
@@ -582,21 +558,4 @@ accelerator values.  That is good because they real have to get into
 the problem; Lablet does not do the core part for you it is just a
 tool that helps learning.
 \end{comment}
-
-
-\section{Conclusion}
-
-\paragraph{Future Work}
-- more sensors/ external sensors
-- Combined analysis, \eg camera and mic
-- Make it easier for teachers to create lab activies
-
-
-\bibliographystyle{acm-sigchi}
-\bibliography{BibEntries}
-
-\end{document}
-
-
-
 
